@@ -2,9 +2,15 @@
 //
 
 #include <iostream>
+#include "Foo.h"
+#include "MemoryDebugger.h"
 
+using namespace std;
 int main()
 {
-    std::cout << "Hello World!\n";
+	HeapManager::InitializeHeaps();
+
+
+	HeapManager::CleanUp();
 }
 
