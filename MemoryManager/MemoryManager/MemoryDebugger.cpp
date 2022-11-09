@@ -49,10 +49,54 @@ void HeapManager::CleanUp()
         operator delete(heaps[i], true); //delete every heap with isHeap set to true
     }
 }
+bool MemoryHeap::WalkTheHeap()
+{
+    //initialize values
+    int curBytes = 0;
+    int curTotalBytes = 0;
+    int variableAmount = 0;
+    Header* currentHeaderOfInterest = GetHeaderPntr(this);
+    Footer* currentFooterOfInterest = GetFooterPntr(this);
+    void* currentPntrOfInterest = this;
+    curBytes += currentHeaderOfInterest->m_dataSize;
+    curTotalBytes += currentHeaderOfInterest->m_totalDataSize;
+    variableAmount++;
+    unsigned short int correctHeader = 0xDEED;
+    unsigned short int correctFooter = 0xFEED;
+    if (currentHeaderOfInterest->checkValue != correctHeader || currentFooterOfInterest->checkValue != correctFooter) {
+        std::cout << "Error was detected on the heap pointer " << std::endl;
+        return false;
+    }
+
+    //iterate over the heap and check the checkValue of header and footer.
+    while (currentHeaderOfInterest->next != nullptr)
+    {
+        variableAmount++;
+        currentHeaderOfInterest = currentHeaderOfInterest->next;
+        currentPntrOfInterest = GetAddressFromHeader(currentHeaderOfInterest);
+        currentFooterOfInterest = GetFooterPntr(currentPntrOfInterest);
+        curBytes += currentHeaderOfInterest->m_dataSize;
+        curTotalBytes += currentHeaderOfInterest->m_totalDataSize;
+        //if any checkValues is wrong, return false and print info
+        if (currentHeaderOfInterest->checkValue != correctHeader || currentFooterOfInterest->checkValue != correctFooter) {
+            std::cout << "Error was detected on the position " << variableAmount << " element in the heap, at the address: " << currentPntrOfInterest << std::endl;
+            return false;
+        }
+    }
+    std::cout << "The heap was correct. There are " << curTotalBytes << " bytes allocated " << " to " << variableAmount << " variables. " <<
+        curTotalBytes - curBytes << " of these bytes are occupied by header and footer data." << std::endl << "If header/footer info were removed, there would be " << curBytes << " bytes allocated." << std::endl;    
+    return true;
+}
+
 
 //definitions for new and delete overrides
 void* operator new(size_t size)
 {
+
+
+    if (!HeapManager::initialized) HeapManager::InitializeHeaps();
+
+
     size_t nRequestedBytes = size + sizeof(Header) + sizeof(Footer); //requested size plus the size of header and footer
     char* pMem = (char*)malloc(nRequestedBytes); //allocate memory + header and footer
 
@@ -60,9 +104,8 @@ void* operator new(size_t size)
     pHeader->m_dataSize = size; //value of size in header equal to size of requested data 
     pHeader->m_totalDataSize = nRequestedBytes;
     pHeader->m_id = Identificator::Default;
-
-    if (!HeapManager::initialized) HeapManager::InitializeHeaps();
     pHeader->m_heap = HeapManager::GetHeapByIndex((int)Identificator::Default);
+    pHeader->checkValue = 0xDEED;
 
     //set up linked list
     Header* last = pHeader->m_heap->GetLast();
@@ -70,12 +113,14 @@ void* operator new(size_t size)
     pHeader->previous = last;
     pHeader->m_heap->SetLast(pHeader);
     pHeader->next = nullptr;
+    
 
     pHeader->m_heap->AddBytes(size);
 
     void* pFooterAddress = pMem + sizeof(Header) + size; //address of footer is past the header data and variable data
     Footer* pFooter = (Footer*)pFooterAddress;
     pFooter->m_id = Identificator::Default;
+    pFooter->checkValue = 0xFEED;
 
     void* pStartMemBlock = pMem + sizeof(Header);
     return pStartMemBlock;
@@ -112,16 +157,18 @@ void* operator new(size_t size, Identificator heapType)
     else if (heapType == Identificator::Heap)
         return ::operator new(size, true);
     else {
+        if (!HeapManager::initialized) HeapManager::InitializeHeaps();
+       
         size_t nRequestedBytes = size + sizeof(Header) + sizeof(Footer); //requested size plus the size of header and footer
         char* pMem = (char*)malloc(nRequestedBytes); //allocate memory + header and footer
 
         Header* pHeader = (Header*)pMem; //header pointer is at the start of memory block
+        pHeader->m_heap = HeapManager::GetHeapByIndex((int)heapType);
         pHeader->m_dataSize = size; //value of size in header equal to size of requested data 
         pHeader->m_totalDataSize = nRequestedBytes;
         pHeader->m_id = heapType;
+        pHeader->checkValue = 0xDEED;
 
-        if (!HeapManager::initialized) HeapManager::InitializeHeaps();
-        pHeader->m_heap = HeapManager::GetHeapByIndex((int)heapType);
 
         //set up linked list
         Header* last = pHeader->m_heap->GetLast();
@@ -135,6 +182,7 @@ void* operator new(size_t size, Identificator heapType)
         void* pFooterAddress = pMem + sizeof(Header) + size; //address of footer is past the header data and variable data
         Footer* pFooter = (Footer*)pFooterAddress;
         pFooter->m_id = heapType;
+        pFooter->checkValue = 0xFEED;
 
         void* pStartMemBlock = pMem + sizeof(Header);
         return pStartMemBlock;
@@ -152,6 +200,7 @@ void* operator new(size_t size, bool isHeap)
         char* pMem = (char*)malloc(nRequestedBytes); //allocate memory + header and footer
 
         Header* pHeader = (Header*)pMem; //header pointer is at the start of memory block
+        pHeader->checkValue = 0xDEED;
         pHeader->m_dataSize = size; //value of size in header equal to size of requested data 
         pHeader->m_totalDataSize = nRequestedBytes;
         pHeader->m_id = Identificator::Heap;
@@ -162,6 +211,7 @@ void* operator new(size_t size, bool isHeap)
         void* pFooterAddress = pMem + sizeof(Header) + size; //address of footer is past the header data and variable data
         Footer* pFooter = (Footer*)pFooterAddress;
         pFooter->m_id = Identificator::Heap;
+        pFooter->checkValue = 0xFEED;
 
         void* pStartMemBlock = pMem + sizeof(Header);
         return pStartMemBlock;
@@ -200,3 +250,4 @@ void* GetAddressFromHeader(Header* header)
 {
     return (void*)((char*)header + sizeof(Header));
 }
+

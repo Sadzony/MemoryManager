@@ -18,12 +18,14 @@ struct Header {
 	int m_dataSize;
 	int m_totalDataSize;
 	Identificator m_id;
+	unsigned short int checkValue;
 	MemoryHeap* m_heap;
 
 	Header* previous;
 	Header* next;
 };
 struct Footer {
+	unsigned short int checkValue;
 	Identificator m_id;
 };
 
@@ -50,6 +52,7 @@ public:
 	void SetLast(Header* p_last) { last = p_last; }
 	void AddBytes(int p_bytes) { curBytesAllocated += p_bytes; bytesPlusHeaderFooter += p_bytes + sizeof(Header) + sizeof(Footer); }
 	void SubtractBytes(int p_bytes) { curBytesAllocated -= p_bytes; bytesPlusHeaderFooter -= p_bytes + sizeof(Header) + sizeof(Footer); }
+	bool WalkTheHeap();
 protected:
 	int curBytesAllocated = 0;
 	int bytesPlusHeaderFooter = 0;

@@ -17,6 +17,8 @@ int main()
 	Header* fooHead = GetHeaderPntr(foo);
 	Header* heapHead = GetHeaderPntr(HeapManager::GetHeapByIndex(0));
 
+	HeapManager::GetHeapByIndex(0)->WalkTheHeap();
+
 	HeapManager::CleanUp();
 }
 

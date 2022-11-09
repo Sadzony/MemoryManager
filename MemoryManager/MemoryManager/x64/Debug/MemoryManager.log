@@ -1,18 +1,18 @@
-﻿  main.cpp
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(47,1): warning C4099: 'MemoryHeap': type name first seen using 'struct' now seen using 'class'
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(46): message : see declaration of 'MemoryHeap'
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\main.cpp(13,49): warning C4291: 'void *operator new(size_t,Identificator)': no matching operator delete found; memory will not be freed if initialization throws an exception
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(64): message : see declaration of 'operator new'
-  MemoryDebugger.cpp
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(47,1): warning C4099: 'MemoryHeap': type name first seen using 'struct' now seen using 'class'
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(46): message : see declaration of 'MemoryHeap'
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(60,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(61,47): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(74,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(119,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(120,51): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(133,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(155,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(156,51): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+﻿  MemoryDebugger.cpp
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(49,1): warning C4099: 'MemoryHeap': type name first seen using 'struct' now seen using 'class'
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(48): message : see declaration of 'MemoryHeap'
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(104,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(105,47): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(118,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(167,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(168,51): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(180,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(204,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(205,51): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  main.cpp
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(49,1): warning C4099: 'MemoryHeap': type name first seen using 'struct' now seen using 'class'
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(48): message : see declaration of 'MemoryHeap'
+D:\memory\MemoryManager\MemoryManager\MemoryManager\main.cpp(13,49): warning C4291: 'void *operator new(size_t,Identificator)': no matching operator delete found; memory will not be freed if initialization throws an exception
+D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(67): message : see declaration of 'operator new'
   Generating Code...
-  MemoryManager.vcxproj -> C:\Users\s011308k\Documents\GitHub\MemoryManager\MemoryManager\x64\Debug\MemoryManager.exe
+  MemoryManager.vcxproj -> D:\memory\MemoryManager\MemoryManager\x64\Debug\MemoryManager.exe
