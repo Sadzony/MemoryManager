@@ -1,3 +1,5 @@
+#ifdef _DEBUG
+
 #include "MemoryDebugger.h"
 
 //initialization of a static variables
@@ -33,6 +35,7 @@ void HeapManager::Clear(int index)
     Header* heapHead = GetHeaderPntr(heap);
     while (heap->GetLast() != heapHead)
     {
+
         //delete data at header
         delete (GetAddressFromHeader(heap->GetLast()));
     }
@@ -103,8 +106,8 @@ void* operator new(size_t size)
     Header* pHeader = (Header*)pMem; //header pointer is at the start of memory block
     pHeader->m_dataSize = size; //value of size in header equal to size of requested data 
     pHeader->m_totalDataSize = nRequestedBytes;
-    pHeader->m_id = Identificator::Default;
-    pHeader->m_heap = HeapManager::GetHeapByIndex((int)Identificator::Default);
+    pHeader->m_id = HeapID::Default;
+    pHeader->m_heap = HeapManager::GetHeapByIndex((int)HeapID::Default);
     pHeader->checkValue = 0xDEED;
 
     //set up linked list
@@ -119,7 +122,7 @@ void* operator new(size_t size)
 
     void* pFooterAddress = pMem + sizeof(Header) + size; //address of footer is past the header data and variable data
     Footer* pFooter = (Footer*)pFooterAddress;
-    pFooter->m_id = Identificator::Default;
+    pFooter->m_id = HeapID::Default;
     pFooter->checkValue = 0xFEED;
 
     void* pStartMemBlock = pMem + sizeof(Header);
@@ -147,14 +150,16 @@ void operator delete(void* pMem)
     }
     pHeader->m_heap->SubtractBytes(pHeader->m_dataSize);
 
+    
+
     free(pHeader);
 }
 
-void* operator new(size_t size, Identificator heapType)
+void* operator new(size_t size, HeapID heapType)
 {
-    if (heapType == Identificator::Default)
+    if (heapType == HeapID::Default)
         return ::operator new(size);
-    else if (heapType == Identificator::Heap)
+    else if (heapType == HeapID::Heap)
         return ::operator new(size, true);
     else {
         if (!HeapManager::initialized) HeapManager::InitializeHeaps();
@@ -203,14 +208,14 @@ void* operator new(size_t size, bool isHeap)
         pHeader->checkValue = 0xDEED;
         pHeader->m_dataSize = size; //value of size in header equal to size of requested data 
         pHeader->m_totalDataSize = nRequestedBytes;
-        pHeader->m_id = Identificator::Heap;
+        pHeader->m_id = HeapID::Heap;
         pHeader->m_heap = nullptr; //set to nullptr for now.. after constructor, the heap header can point to itself
         pHeader->previous = nullptr;
         pHeader->next = nullptr;
 
         void* pFooterAddress = pMem + sizeof(Header) + size; //address of footer is past the header data and variable data
         Footer* pFooter = (Footer*)pFooterAddress;
-        pFooter->m_id = Identificator::Heap;
+        pFooter->m_id = HeapID::Heap;
         pFooter->checkValue = 0xFEED;
 
         void* pStartMemBlock = pMem + sizeof(Header);
@@ -251,3 +256,4 @@ void* GetAddressFromHeader(Header* header)
     return (void*)((char*)header + sizeof(Header));
 }
 
+#endif // DEBUG

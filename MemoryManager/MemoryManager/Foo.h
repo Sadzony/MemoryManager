@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+
+#include "MemoryDebugger.h"
+
 class Foo
 {
 public:
@@ -10,5 +13,12 @@ public:
 	int GetInt() { return m_int; }
 private:
 	int m_int;
+
+#ifdef _DEBUG
+	//new and delete overrides
+public:
+	static void* operator new (size_t size) { return ::operator new(size, HeapID::Graphics); }
+	static void operator delete(void* p, size_t size) { ::operator delete(p); }
+#endif
 };
 

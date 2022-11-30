@@ -1,18 +1,4 @@
-﻿  MemoryDebugger.cpp
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(49,1): warning C4099: 'MemoryHeap': type name first seen using 'struct' now seen using 'class'
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(48): message : see declaration of 'MemoryHeap'
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(104,31): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(105,47): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(118,35): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(167,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(168,51): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(180,39): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(204,35): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.cpp(205,51): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-  main.cpp
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(49,1): warning C4099: 'MemoryHeap': type name first seen using 'struct' now seen using 'class'
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(48): message : see declaration of 'MemoryHeap'
-D:\memory\MemoryManager\MemoryManager\MemoryManager\main.cpp(13,49): warning C4291: 'void *operator new(size_t,Identificator)': no matching operator delete found; memory will not be freed if initialization throws an exception
-D:\memory\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(67): message : see declaration of 'operator new'
-  Generating Code...
-  MemoryManager.vcxproj -> D:\memory\MemoryManager\MemoryManager\x64\Debug\MemoryManager.exe
+﻿  main.cpp
+D:\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(51,1): warning C4099: 'MemoryHeap': type name first seen using 'struct' now seen using 'class'
+D:\MemoryManager\MemoryManager\MemoryManager\MemoryDebugger.h(50): message : see declaration of 'MemoryHeap'
+  MemoryManager.vcxproj -> D:\MemoryManager\MemoryManager\x64\Debug\MemoryManager.exe

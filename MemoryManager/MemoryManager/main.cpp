@@ -8,17 +8,12 @@
 using namespace std;
 int main()
 {
-	//HeapManager::InitializeHeaps();
 
-	Foo* foo = new (Identificator::Graphics) Foo(24);
+	Foo* foo = new Foo(24);
 	Foo* foo2 = new Foo(12);
-	foo->AMethod();
-
-	Header* fooHead = GetHeaderPntr(foo);
-	Header* heapHead = GetHeaderPntr(HeapManager::GetHeapByIndex(0));
-
-	HeapManager::GetHeapByIndex(0)->WalkTheHeap();
-
+#ifdef _DEBUG
+	HeapManager::GetHeapByIndex(1)->WalkTheHeap();
 	HeapManager::CleanUp();
+#endif // DEBUG
 }
 

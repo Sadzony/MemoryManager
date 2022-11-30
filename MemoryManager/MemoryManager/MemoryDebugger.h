@@ -2,11 +2,13 @@
 #include <iostream>
 #include <vector>
 
-enum class Identificator 
+#ifdef _DEBUG
+
+enum class HeapID //flag defining what heap the object is in.
 {
 	Default,
 	Graphics,
-	Heap,
+	Heap, //this flag is used to define a heap object.
 };
 
 //forward declare
@@ -17,7 +19,7 @@ struct MemoryHeap;
 struct Header {
 	int m_dataSize;
 	int m_totalDataSize;
-	Identificator m_id;
+	HeapID m_id;
 	unsigned short int checkValue;
 	MemoryHeap* m_heap;
 
@@ -26,7 +28,7 @@ struct Header {
 };
 struct Footer {
 	unsigned short int checkValue;
-	Identificator m_id;
+	HeapID m_id;
 };
 
 
@@ -64,7 +66,7 @@ void* operator new (size_t size);
 void operator delete (void* pMem);
 
 //new operator on non-default heaps
-void* operator new (size_t size, Identificator heapType);
+void* operator new (size_t size, HeapID heapType);
 
 
 //tracker specific operator
@@ -75,3 +77,5 @@ void operator delete (void* pMem, bool isHeap);
 Header* GetHeaderPntr(void* pntr);
 Footer* GetFooterPntr(void* pntr);
 void* GetAddressFromHeader(Header* header);
+
+#endif // DEBUG
